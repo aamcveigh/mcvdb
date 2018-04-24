@@ -1,2 +1,2 @@
-# mcvdb
+----Crate new tables----
 SELECT * FROM newtable;
