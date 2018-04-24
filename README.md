@@ -1,1 +1,2 @@
 # mcvdb
+SELECT * FROM newtable;
