@@ -1,18 +1,21 @@
 -----Create Purchases Schema-----
-CREATE SCHEMA purchases
------Crate new tables for purchases-----
 
----items---
-CREATE TABLE items
+CREATE SCHEMA purchases
+
+-----Crate tables for purchases-----
+
+---Create items Table---
+
+CREATE TABLE purchases.items
 (
-    Order_Date date,
+    Order_Date varchar (256),
     Order_ID text,
     Title text,
     Category text,
     ASIN_ISBN text,
     UNSPSC_Code text,
     Website text,
-    Release_Date date,
+    Release_Date varchar (256),
     Condition text,
     Seller text,
     Seller_Credentials text,
@@ -23,7 +26,7 @@ CREATE TABLE items
     Purchase_Order_Number text,
     PO_Line_Number text,
     Ordering_Customer_Email text,
-    Shipment_Date date,
+    Shipment_Date varchar (256),
     Shipping_Address_Name text,
     Shipping_Address_Street_1 text,
     Shipping_Address_Street_2 text,
@@ -40,11 +43,29 @@ CREATE TABLE items
     Exemption_Opt_Out money,
     Buyer_Name text,
     Currency text,
-    Group_Name text,
-    PRIMARY KEY (Order_ID)
+    Group_Name text
 );
 
----ordersandshipments---
+    ---Update Date Columns---
+
+    COMMIT;
+
+    ALTER TABLE purchases.items
+    ALTER COLUMN Order_Date TYPE DATE
+    USING to_date(Order_Date, 'MM/DD/YY');
+
+    ALTER TABLE purchases.items
+    ALTER COLUMN Release_Date TYPE DATE
+    USING to_date(Release_Date, 'MM/DD/YY');
+
+    ALTER TABLE purchases.items
+    ALTER COLUMN Shipment_Date TYPE DATE
+    USING to_date(Shipment_Date, 'MM/DD/YY');
+
+    END TRANSACTION;
+
+---Create ordersandshipments table---
+
 CREATE TABLE ordersandshipments
 (
     Order_Date varchar (256),
@@ -70,5 +91,4 @@ CREATE TABLE ordersandshipments
     Total_Charged varchar (256),
     Buyer_Name varchar (256),
     Group_Name varchar (256),
-    PRIMARY KEY (Order_ID)
 );
