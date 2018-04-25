@@ -66,29 +66,43 @@ CREATE TABLE purchases.items
 
 ---Create ordersandshipments table---
 
-CREATE TABLE ordersandshipments
+CREATE TABLE purchases.ordersandshipments
 (
     Order_Date varchar (256),
-    Order_ID varchar (256),
-    Payment_Instrument_Type varchar (256),
-    Website varchar (256),
-    Purchase_Order_Number varchar (256),
-    Ordering_Customer_Email varchar (256),
+    Order_ID text,
+    Payment_Instrument_Type text,
+    Website text,
+    Purchase_Order_Number text,
+    Ordering_Customer_Email text,
     Shipment_Date varchar (256),
-    Shipping_Address_Name varchar (256),
-    Shipping_Address_Street_1 varchar (256),
-    Shipping_Address_Street_2 varchar (256),
-    Shipping_Address_City varchar (256),
-    Shipping_Address_State varchar (256),
-    Shipping_Address_Zip varchar (256),
-    Order_Status varchar (256),
-    Carrier_Name_And_Tracking_Number varchar (256),
-    Subtotal varchar (256),
-    Shipping_Charge varchar (256),
-    Tax_Before_Promotions varchar (256),
-    Total_Promotions varchar (256),
-    Tax_Charged varchar (256),
-    Total_Charged varchar (256),
-    Buyer_Name varchar (256),
-    Group_Name varchar (256),
+    Shipping_Address_Name text,
+    Shipping_Address_Street_1 text,
+    Shipping_Address_Street_2 text,
+    Shipping_Address_City text,
+    Shipping_Address_State text,
+    Shipping_Address_Zip text,
+    Order_Status text,
+    Carrier_Name_And_Tracking_Number text,
+    Subtotal money,
+    Shipping_Charge money,
+    Tax_Before_Promotions money,
+    Total_Promotions money,
+    Tax_Charged money,
+    Total_Charged money,
+    Buyer_Name text,
+    Group_Name text
 );
+
+    ---Update Date Columns---
+
+    COMMIT;
+
+    ALTER TABLE purchases.ordersandshipments
+    ALTER COLUMN Order_Date TYPE DATE
+    USING to_date(Order_Date, 'MM/DD/YY');
+
+    ALTER TABLE purchases.ordersandshipments
+    ALTER COLUMN Shipment_Date TYPE DATE
+    USING to_date(Shipment_Date, 'MM/DD/YY');
+
+    END TRANSACTION;
