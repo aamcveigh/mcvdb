@@ -1,12 +1,12 @@
------Create Purchases Schema-----
+-----Create amazon Schema-----
 
-CREATE SCHEMA purchases
+CREATE SCHEMA amazon
 
------Crate tables for purchases-----
+-----Crate tables for amazon-----
 
 ---Create items Table---
 
-CREATE TABLE purchases.items
+CREATE TABLE amazon.items
 (
     Order_Date varchar (256),
     Order_ID text,
@@ -50,15 +50,15 @@ CREATE TABLE purchases.items
 
     COMMIT;
 
-    ALTER TABLE purchases.items
+    ALTER TABLE amazon.items
     ALTER COLUMN Order_Date TYPE DATE
     USING to_date(Order_Date, 'MM/DD/YY');
 
-    ALTER TABLE purchases.items
+    ALTER TABLE amazon.items
     ALTER COLUMN Release_Date TYPE DATE
     USING to_date(Release_Date, 'MM/DD/YY');
 
-    ALTER TABLE purchases.items
+    ALTER TABLE amazon.items
     ALTER COLUMN Shipment_Date TYPE DATE
     USING to_date(Shipment_Date, 'MM/DD/YY');
 
@@ -66,7 +66,7 @@ CREATE TABLE purchases.items
 
 ---Create ordersandshipments table---
 
-CREATE TABLE purchases.ordersandshipments
+CREATE TABLE amazon.ordersandshipments
 (
     Order_Date varchar (256),
     Order_ID text,
@@ -97,12 +97,50 @@ CREATE TABLE purchases.ordersandshipments
 
     COMMIT;
 
-    ALTER TABLE purchases.ordersandshipments
+    ALTER TABLE amazon.ordersandshipments
     ALTER COLUMN Order_Date TYPE DATE
     USING to_date(Order_Date, 'MM/DD/YY');
 
-    ALTER TABLE purchases.ordersandshipments
+    ALTER TABLE amazon.ordersandshipments
     ALTER COLUMN Shipment_Date TYPE DATE
     USING to_date(Shipment_Date, 'MM/DD/YY');
+
+    END TRANSACTION;
+
+---Create refunds table---
+
+CREATE TABLE amazon.refunds
+    (
+    Order_ID text,
+    Order_Date varchar (256),
+    Title text,
+    Category text,
+    ASIN_ISBN text,
+    Website text,
+    Purchase_Order_Number text,
+    Refund_Date varchar (256),
+    Refund_Condition text,
+    Refund_Amount money,
+    Refund_Tax_Amount money,
+    Tax_Exemption_Applied money,
+    Refund_Reason text,
+    Quantity text,
+    Seller text,
+    Seller_Credentials text,
+    Buyer_Name text,
+    Group_Name text
+    );
+
+    ---Update Date Columns---
+
+    COMMIT;
+
+    ALTER TABLE amazon.refunds
+    ALTER COLUMN Order_Date TYPE DATE
+    USING to_date(Order_Date, 'MM/DD/YY');
+
+    ALTER TABLE amazon.refunds
+    ALTER COLUMN Refund_Date TYPE DATE
+    USING to_date(Refund_Date, 'MM/DD/YY');
 
     END TRANSACTION;
